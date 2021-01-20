@@ -83,9 +83,14 @@ At test time you can either use the model to animate the character or use our in
 animate
 
 ```
-python 
+python animate_example.py --gpu_ids 0 --model_path checkpoints/Dog-.../ --img_animation_list datasets/Dog/animation_list.txt --dataroot datasets/Dog
 ```
 
+`--img_animation_list` points to a file that lists the images that should be used for animation. The file should contain one file name per line pointing to an image in `dataroot`. The model then generates an animation by interpolating between the images in the given order. See `datasets/Dog/animation_list.txt` for an example.
+
+You can add `--draw_kps` to visualize the keypoints in the animation.
+You can specifiy the gif parameters by setting `--num_interpolations 10` and `--fps 5`.
+`num_interpolations` specifies how many images are generated between two real images (from `img_animation_list`), `fps` determines the frames per second of the generated gif.
 
 ### Modify Individual Keypoints
 To run the interactive GUI:
