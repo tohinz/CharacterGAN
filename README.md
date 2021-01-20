@@ -102,7 +102,7 @@ python visualizer.py --gpu_ids 0 --model_path checkpoints/Dog-.../
 Set `--gpu_ids -1` to run the model on a CPU.
 You can also scale the images during visualization, e.g. use `--scale 2`.
 
-## Patch-based refinement
+## Patch-based Refinement
 We use [this implementation](https://github.com/jamriska/ebsynth) to run the patch-based refinement step on our generated images.
 The easiest way to do this is to merge all your training images into a single large image file and use this image file as the style and source image.
 
