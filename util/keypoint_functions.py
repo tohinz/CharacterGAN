@@ -35,6 +35,7 @@ def add_skeleton(kps_2d, kps_1d, skeleton, opt):
 def load_keypoints(opt):
     with open(os.path.join(opt.dataroot, "keypoints.csv"), "r") as f:
         keypoints = f.readlines()
+    keypoints = [kp.strip() for kp in keypoints]
     keypoint_labels = keypoint_dict.get_keypoints()
 
     kp_dict = {}

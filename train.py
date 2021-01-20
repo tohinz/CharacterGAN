@@ -32,8 +32,8 @@ except OSError:
 # get resolution of training images
 _training_imgs = glob.glob(os.path.join(opt.dataroot, "*.jpg")) + glob.glob(os.path.join(opt.dataroot, "*.png"))
 _img = img.imread(_training_imgs[0])
-opt.image_size_x = _img.size[0]
-opt.image_size_y = _img.size[1]
+opt.image_size_x = _img.shape[0]
+opt.image_size_y = _img.shape[1]
 
 # save training parameters and files
 with open(osp.join(opt.dir2save, 'parameters.txt'), 'w') as f:
