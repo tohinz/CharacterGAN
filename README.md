@@ -29,7 +29,7 @@ Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif
 
 Interactive |![dog_gui](gifs/gui_dog.gif) | ![man_gui](gifs/gui_stock_man.gif)
 :-------------------------:|:-------------------------:|:-------------------------:
-Gui | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)
+*Gui* | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)
 
 <br/>
 
