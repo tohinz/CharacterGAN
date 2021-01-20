@@ -23,8 +23,9 @@ Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif
 
 **Reposing**: You can use our interactive GUI to easily repose a given character based on keypoints.
 
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
 Interactive GUI |  ![dog_gui](gifs/gui_dog.gif) | ![man_gui](gifs/gui_stock_man.gif) | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+|   |
 
 ## Installation
 
