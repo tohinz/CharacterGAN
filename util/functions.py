@@ -81,8 +81,8 @@ def read_images_and_keypoints(opt):
         if opt.mask:
             save_dir = os.path.join(opt.dir2save, "masks")
             makedir(save_dir)
-            alpha = np.zeros_like(x[:, :, 0])
-            alpha[np.isclose(np.mean(x, axis=2), opt.bkg_color, rtol=1e-1)] = 255
+            alpha = np.ones_like(x[:, :, 0])
+            alpha[np.isclose(np.mean(x, axis=2), opt.bkg_color, rtol=1e-1)] = 0
 
             alpha = np.array(alpha, dtype=bool)
             alpha = morphology.remove_small_objects(alpha, 10, connectivity=1)
