@@ -2,8 +2,10 @@
 
 Implementation of the paper [*"CharacterGAN: Few-Shot Keypoint Character Animation and Reposing"* by Tobias Hinz, Matthew Fisher, Oliver Wang, Eli Shechtman, and Stefan Wermter](google.com) (open with Adobe Acrobat or similar to see visualizations). Supplementary material can be found [here](google.com).
 
-Our model can be trained on only a few images (e.g. 10) of a given character labeled with user-chosen keypoints.
-Through training our model with the right kind of conditioning and data augmentation the resulting model can be used to animate or repose the character on which it was trained.
+Our model can be trained on only a *few images (e.g. 10) of a given character* labeled with user-chosen *keypoints*.
+The resulting model can be used to animate the character on which it was trained by interpolating between its poses specified by their keypoints.
+We can also repose characters by simply moving the keypoints into the desired positions.
+
 
 
 
@@ -38,6 +40,12 @@ Keypoints
 Skeleton
 
 ## Training
+
+### Training Data
+All training data for a given character should be in a single folder.
+Concretely: the folder should contain all training images (all in the same resolution), a file called `keypoints.csv`, and (potentially) a file called `keypoints_skeleton.csv`.
+
+
 To train a model with the default parameters from our paper run:
 
 ```
