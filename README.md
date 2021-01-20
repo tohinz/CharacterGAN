@@ -12,8 +12,8 @@ Examples of animation.
 For all examples the model was trained on 8-15 images (see first row) of the given character.
 
 12         |  15          |  9         |  12          |  15         |  15          |  8
-:-------------------------:|:-------------------------:|:-------------------------:
-![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/man.gif) |  ![robot_animation](gifs/evans.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![dog_animation](gifs/dog.gif =100x20) |  ![maddy_animation](gifs/maddy.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/man.gif) |  ![robot_animation](gifs/evans.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)
 
 Example of interpolations between two poses with the start and end keypoints highlighted:
 
