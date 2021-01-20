@@ -52,7 +52,7 @@ class KPDataset(data.Dataset):
                 a_path_rgb = a_path_rgb + (np.repeat(current_kp, repeats=3, axis=0) * current_color)
 
             if self.opt.skeleton:
-                a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, self.keypoints_1d[i], self.skeleton)
+                a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, self.keypoints_1d[i], self.skeleton, self.opt)
 
             img = a_path_rgb * 255.
             img = img.astype(np.uint8)

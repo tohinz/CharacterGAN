@@ -20,33 +20,16 @@ def get_keypoints():
 
 
 # add a connecting line between keypoints
-def add_skeleton(kps_2d, kps_1d, skeleton):
+def add_skeleton(kps_2d, kps_1d, skeleton, opt):
     for idx in kps_1d.keys():
         start_x = int(kps_1d[idx][0])
         start_y = int(kps_1d[idx][1])
-        if start_x < 0:
-            start_x = 0
-        if start_x >= 250:
-            start_x = 249
-        if start_y < 0:
-            start_y = 0
-        if start_y >= 250:
-            start_y = 249
         for end in skeleton[idx]:
             end_x = int(kps_1d[end][0])
             end_y = int(kps_1d[end][1])
-            if end_x < 0:
-                end_x = 0
-            if end_x >= 250:
-                end_x = 249
-            if end_y < 0:
-                end_y = 0
-            if end_y >= 250:
-                end_y = 249
             line_x, line_y = weighted_line(start_x, start_y, end_x, end_y, rmin=0, rmax=max(kps_2d.shape[1:]))
             kps_2d[:, line_y, line_x] = 1
     return kps_2d
-
 
 
 def load_keypoints(opt):
@@ -57,13 +40,13 @@ def load_keypoints(opt):
     kp_dict = {}
     for line_idx, keypoint in enumerate(keypoints):
         # check keypoint entry has correct format
-        if len(keypoint.split(",")) != 6:
+        if len(keypoint.split(",")) != 4:
             print("Keypoint file has not enough columns ({} columns) at line {}.".format(len(keypoint.split(",")), line_idx))
-            print("Keypoint file should have six columns: keypoint,x-coord,y-coord,img-name,img-resolution-x,img-resolution-y")
+            print("Keypoint file should have four columns: keypoint,x-coord,y-coord,img-name")
             exit()
 
         # load keypoints
-        kp, x, y, img, _, _ = keypoint.split(",")
+        kp, x, y, img = keypoint.split(",")
         if img not in kp_dict.keys():
             kp_dict[img] = {keypoint_labels[kp]: [int(x),int(y)]}
         else:
@@ -122,9 +105,9 @@ def create_keypoint_condition(img, keypoints, opt, num_keypoints, gaussian_blur=
     return condition
 
 
-def apply_gaussian_blur(condition, opt, normalize=True, size=250):
-    radius = int(opt.gaussian_r * max(size, size))
-    sigma = int(opt.gaussian_s * max(size, size))
+def apply_gaussian_blur(condition, opt, normalize=True):
+    radius = int(opt.gaussian_r * max(opt.image_size_y, opt.image_size_x))
+    sigma = int(opt.gaussian_s * max(opt.image_size_y, opt.image_size_x))
     element = skimage.morphology.disk(radius=radius)
     for idx in range(opt.num_keypoints):
         _mask = condition[idx, :, :]

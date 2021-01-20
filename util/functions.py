@@ -136,7 +136,7 @@ def generate_keypoint_condition(kps, opt):
 
     if opt.skeleton:
         skeleton = keypoint_functions.load_skeleton_info(opt)
-        a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, kps, skeleton)
+        a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, kps, skeleton, opt)
 
     img = a_path_rgb * 255.
     img = img.astype(np.uint8)

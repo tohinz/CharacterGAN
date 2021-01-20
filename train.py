@@ -6,6 +6,7 @@ import datetime
 from collections import OrderedDict
 import dateutil.tz
 from tqdm import tqdm
+from skimage import io as img
 
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -27,6 +28,12 @@ try:
     os.makedirs(opt.dir2save)
 except OSError:
     pass
+
+# get resolution of training images
+_training_imgs = glob.glob(os.path.join(opt.dataroot, "*.jpg")) + glob.glob(os.path.join(opt.dataroot, "*.png"))
+_img = img.imread(_training_imgs[0])
+opt.image_size_x = _img.size[0]
+opt.image_size_y = _img.size[1]
 
 # save training parameters and files
 with open(osp.join(opt.dir2save, 'parameters.txt'), 'w') as f:
