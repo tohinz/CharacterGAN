@@ -33,11 +33,6 @@ TODO
 pip install -r requirements.txt
 ```
 
-## Requirements
-Images (we do 250px, larger possible I guess)
-Keypoints
-Skeleton
-
 ## Training
 
 ### Training Data
@@ -52,16 +47,26 @@ The first column describes which keypoint we are describing in this line, the fo
 
 See our example training data in `datasets` for examples of both files.
 
-
+### Train a Model
 To train a model with the default parameters from our paper run:
 
 ```
-python train.py --gpu_ids 0 
+python train.py --gpu_ids 0 --num_keypoints 16 --dataroot datasets/Dog --fp16
 ```
 
-Training one model should take about 60 (FP16) to 80 (FP32) minutes on an NVIDIA GeForce GTX 2080Ti.
+Training one model should take about 60 (FP16) to 90 (FP32) minutes on an NVIDIA GeForce GTX 2080Ti.
 
-### Parameters to Modify
+### Training Parameters
+You can adjust several parameters at train time to possibly improve your results.
+
+* `--name` to change the name of the folder in which the results are stored (default is `CharacterGAN-Timestamp`
+* `--niter 4000` and `--niter_decay 4000` to adjust the number of training steps (`niter_decay`is the number of training steps during which we reduce the learning rate linearly; default is 8000 for both, but you can get good results with fewer iterations)
+* `--image_size_x` and `--image_size_y` to adjust the size of your training images (default is set to 250 pixels, use the resolution of your training images here)
+* `--mask False --output_nc 3` to train without a mask
+* `--skeleton False`to train without skeleton information
+* `--bkg_color 0` to set the background color of the training images to *black* (default is white, only important if you train with a mask)
+* `--batch_size 10` to train with a different batch size (default is 5)
+
 image size
 mask
 
