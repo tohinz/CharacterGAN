@@ -92,10 +92,11 @@ python
 
 
 ## Patch-based refinement
-use PM
+We use [this implementation](https://github.com/jamriska/ebsynth) to run the patch-based refinement step on our generated images.
+The easiest way to do this is to merge all your training images into a single large image file and use this image file as the style and source image.
 
 ## Acknowledgements
-Our implementation uses code from [Pix2PixHD](google.com) and the TPS augmentation from [DeepSIM](google.com).
+Our implementation uses code from [Pix2PixHD](https://github.com/NVIDIA/pix2pixHD), the TPS augmentation from [DeepSIM](https://github.com/eliahuhorwitz/DeepSIM), and the patch-based refinement code from [https://ebsynth.com/](https://ebsynth.com/) ([GitHub](https://github.com/jamriska/ebsynth)).
 
 ## Citation
 If you found this code useful please consider citing:
