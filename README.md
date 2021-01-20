@@ -68,12 +68,6 @@ You can adjust several parameters at train time to possibly improve your results
 
 The file `options/keypoints.py` lets you modify/add/remove keypoints for your characters.
 
-
-```
-python train.py --gpu_ids 0
-```
-
-
 ### Results
 The output is saved to `checkpoints/` and we log the training process with Tensorboard.
 To monitor the progress go to the respective folder and run
@@ -94,12 +88,14 @@ python
 
 
 ### Modify Individual Keypoints
-GUI
+To run the interactive GUI:
 
 ```
-python 
+python visualizer.py --gpu_ids 0 --model_path checkpoints/Dog-.../
 ```
 
+Set `--gpu_ids -1` to run the model on a CPU.
+You can also scale the images during visualization, e.g. use `--scale 2`.
 
 ## Patch-based refinement
 We use [this implementation](https://github.com/jamriska/ebsynth) to run the patch-based refinement step on our generated images.
