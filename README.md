@@ -80,7 +80,7 @@ To monitor the progress go to the respective folder and run
 At test time you can either use the model to animate the character or use our interactive GUI to change the position of individual keypoints.
 
 ### Animate Character
-animate
+To animate a character (or create interpolations between two images):
 
 ```
 python animate_example.py --gpu_ids 0 --model_path checkpoints/Dog-.../ --img_animation_list datasets/Dog/animation_list.txt --dataroot datasets/Dog
