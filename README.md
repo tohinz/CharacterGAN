@@ -13,19 +13,25 @@ To train the model all we need are few images depicting the character in diverse
 
 Training Images |  12         |  15          |  9         |  12          |  15         |  15          |  8
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/stock_man.gif) |  ![robot_animation](gifs/evans.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)<br />
+Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/stock_man.gif) |  ![robot_animation](gifs/evans.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)
+
+<br/><br/>
 
 **Frame interpolation**: Example of interpolations between two poses with the start and end keypoints highlighted.<br />
 
 ![man](interpolations/Man/kp_pm_gen_img_0000.jpg) |  ![man](interpolations/Man/pm_gen_img_0000.jpg) |  ![man](interpolations/Man/pm_gen_img_0001.jpg) |   ![man](interpolations/Man/pm_gen_img_0002.jpg) |   ![man](interpolations/Man/pm_gen_img_0003.jpg) |   ![man](interpolations/Man/pm_gen_img_0004.jpg) |   ![man](interpolations/Man/pm_gen_img_0005.jpg) |   ![man](interpolations/Man/pm_gen_img_0006.jpg) |   ![man](interpolations/Man/pm_gen_img_0007.jpg) |   ![man](interpolations/Man/pm_gen_img_0008.jpg) |   ![man](interpolations/Man/pm_gen_img_0009.jpg) |  ![man](interpolations/Man/pm_gen_img_0010.jpg)  |   ![man](interpolations/Man/kp_pm_gen_img_0010.jpg)
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![dog](interpolations/Dog/kp_pm_gen_img_0000.jpg) |  ![dog](interpolations/Dog/pm_gen_img_0000.jpg) |  ![dog](interpolations/Dog/pm_gen_img_0001.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0002.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0003.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0004.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0005.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0006.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0007.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0008.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0009.jpg) |  ![dog](interpolations/Dog/pm_gen_img_0010.jpg)  |   ![dog](interpolations/Dog/kp_pm_gen_img_0010.jpg)<br />
+![dog](interpolations/Dog/kp_pm_gen_img_0000.jpg) |  ![dog](interpolations/Dog/pm_gen_img_0000.jpg) |  ![dog](interpolations/Dog/pm_gen_img_0001.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0002.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0003.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0004.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0005.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0006.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0007.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0008.jpg) |   ![dog](interpolations/Dog/pm_gen_img_0009.jpg) |  ![dog](interpolations/Dog/pm_gen_img_0010.jpg)  |   ![dog](interpolations/Dog/kp_pm_gen_img_0010.jpg)
+
+<br/><br/>
 
 **Reposing**: You can use our interactive GUI to easily repose a given character based on keypoints.
 
 Interactive |![dog_gui](gifs/gui_dog.gif) | ![man_gui](gifs/gui_stock_man.gif)
 :-------------------------:|:-------------------------:|:-------------------------:
-Gui | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)<br />
+Gui | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)
+
+<br/>
 
 ## Installation
 
