@@ -29,7 +29,7 @@ Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif
 
 Interactive |![dog_gui](gifs/gui_dog.gif) | ![man_gui](gifs/gui_stock_man.gif)
 :-------------------------:|:-------------------------:|:-------------------------:
-Gui | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)
+**Gui** | ![cow_gui](gifs/gui_cow.gif) | ![man_gui](gifs/gui_watercolor_man.gif)
 
 <br/>
 
@@ -117,6 +117,8 @@ The easiest way to do this is to merge all your training images into a single la
 
 ## Acknowledgements
 Our implementation uses code from [Pix2PixHD](https://github.com/NVIDIA/pix2pixHD), the TPS augmentation from [DeepSIM](https://github.com/eliahuhorwitz/DeepSIM), and the patch-based refinement code from [https://ebsynth.com/](https://ebsynth.com/) ([GitHub](https://github.com/jamriska/ebsynth)).
+
+We would also like to thank [Zuzana Studená](https://artemisfilm.webnode.com/) who produced some of the artwork used in this work.
 
 ## Citation
 If you found this code useful please consider citing:
