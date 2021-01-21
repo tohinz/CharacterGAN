@@ -130,6 +130,6 @@ for iter in tqdm(range(0, opt.niter + opt.niter_decay)):
     ############## Reduce learning rate ##########
     # linearly decay learning rate after certain iterations
     if iter > opt.niter:
-        model.module.update_learning_rate()
+        model.update_learning_rate()
 
 writer.close()
