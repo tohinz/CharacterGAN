@@ -13,14 +13,6 @@ def get_params(opt, size, input_im):
     flip = random.random() > 0.5
     params["flip"] = flip
 
-    if opt.augment:
-        params["scale"] = 1
-        params["translate_x"] = random.randrange(-25, 25)
-        params["translate_y"] = random.randrange(-25, 25)
-        params["rotate"] = 0
-        params["shear"] = 0
-
-
     if opt.tps_aug:
         np_im = np.array(input_im)
         tps_points_per_dim = opt.tps_points_per_dim

@@ -119,33 +119,52 @@ def read_images_and_keypoints(opt):
 def generate_keypoint_condition(kps, opt):
     a_path_rgb = np.zeros((opt.image_size_y, opt.image_size_x, 3))
     colors = keypoint_functions.get_keypoint_colors()
+    keypoint_layers = keypoint_functions.load_layer_information(opt)
 
     kps_2d = keypoint_functions.create_keypoint_condition(a_path_rgb, kps, opt, num_keypoints=opt.num_keypoints)
     kps_2d = torch.from_numpy(kps_2d)
     kps_2d = (kps_2d + 1) / 2.0
 
-    a_path_rgb = np.transpose(a_path_rgb, (2, 0, 1))
+    # each keypoint condition for an image is now a list where each list contains the information
+    # about the keypoints in the given layer for the given image
+    layered_keypoints_2d = []
+    for layer in keypoint_layers:
+        layered_keypoints_2d.append(kps_2d[[layer], :, :].squeeze())
+    kps_2d = layered_keypoints_2d
 
-    for idx in range(opt.num_keypoints):
-        current_kp = np.expand_dims(kps_2d[idx], 0)
-        current_color = np.zeros_like(kps_2d[:3, :, :])
-        current_color[0] = colors[idx][0]
-        current_color[1] = colors[idx][1]
-        current_color[2] = colors[idx][2]
-        a_path_rgb = a_path_rgb + (np.repeat(current_kp, repeats=3, axis=0) * current_color)
+    layered_keypoints_1d = []
+    for layer in keypoint_layers:
+        current_keypoint_1d = {x: kps[x] for x in layer}
+        layered_keypoints_1d.append(current_keypoint_1d)
+    kps = layered_keypoints_1d
 
-    if opt.skeleton:
-        skeleton = keypoint_functions.load_skeleton_info(opt)
-        a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, kps, skeleton, opt)
-
-    img = a_path_rgb * 255.
-    img = img.astype(np.uint8)
-    img = Image.fromarray(np.transpose(img, (1, 2, 0)))
     transform_list = []
     transform_list += [transforms.ToTensor()]
     transform_list += [transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
     transform = transforms.Compose(transform_list)
-    img_label = transform(img).unsqueeze(0).to(opt.device)
+
+    img_label = []
+
+    for layer_idx in range(len(keypoint_layers)):
+        a_path_rgb = np.zeros((3, opt.image_size_y, opt.image_size_x))
+        for idx in range(kps_2d[layer_idx].shape[0]):
+            current_kp = np.expand_dims(kps_2d[layer_idx][idx], 0)
+            current_color = np.zeros_like(a_path_rgb)
+            current_color[0] = colors[idx][0]
+            current_color[1] = colors[idx][1]
+            current_color[2] = colors[idx][2]
+            a_path_rgb = a_path_rgb + (np.repeat(current_kp, repeats=3, axis=0) * current_color)
+
+            if opt.skeleton:
+                skeleton = keypoint_functions.load_skeleton_info(opt)
+                a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, kps[layer_idx], skeleton, opt)
+
+        img = a_path_rgb * 255.
+        img = img.astype(np.uint8)
+        img = Image.fromarray(np.transpose(img, (1, 2, 0)))
+        # img.save("kp_{}.jpg".format(layer_idx))
+        img_label.append(transform(img).unsqueeze(0).to(opt.device))
+    # exit()
 
     return img_label
 
@@ -186,7 +205,7 @@ def load_model(opt):
                     network.load_state_dict(model_dict)
         return network
 
-    netG = networks.define_G(opt.input_nc, opt.output_nc, opt.ngf, norm=opt.norm, gpu_ids=opt.gpu_ids)
+    netG = networks.define_G(opt.input_nc, opt.output_nc, opt, opt.ngf, norm=opt.norm, gpu_ids=opt.gpu_ids)
     netG = load_network(netG, 'G', opt.which_epoch, opt.name)
     return netG
 

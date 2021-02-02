@@ -49,7 +49,7 @@ class KPDataset(data.Dataset):
 
         self.keypoints_2d = self.get_layered_keypoints_as_images()
         self.size = (self.keypoints_2d[0][0].size[0], self.keypoints_2d[0][0].size[1])
-        self.image_placeholder = np.zeros((3, self.size[0], self.size[1]))
+        self.image_placeholder = np.zeros((self.size[0], self.size[1], 3))
 
         self.dataset_size = len(self.images)
 

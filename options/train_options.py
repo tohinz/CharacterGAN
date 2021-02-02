@@ -15,7 +15,6 @@ class TrainOptions(BaseOptions):
         self.parser.add_argument('--lr', type=float, default=0.0002, help='initial learning rate for adam')
         self.parser.add_argument('--batch_size', type=int, default=5, help='batch size')
         self.parser.add_argument('--num_workers', type=int, default=4, help='workers for dataloader')
-        self.parser.add_argument('--augment', action='store_true', help='affine augmentations for image etc', default=False)
         self.parser.add_argument('--tps_aug', type=str2bool, default=True, help='apply tps augmentations during training')
         self.parser.add_argument('--tps_points_per_dim', type=int, default=3)
         self.parser.add_argument('--tps_scale', type=float, default=0.1, help='stretch scale for TPS')

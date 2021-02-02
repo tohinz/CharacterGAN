@@ -28,7 +28,7 @@ def generate_gif(dir2save, images, img_list, kps, draw_kps, fps):
         all_images.append(img)
         img.save(os.path.join(save_path, "gen_img_{:04d}.jpg".format(idx)))
 
-    imageio.mimsave('{}/animation_interp_{}_num_kps_{}_fps_{}.gif'.format(dir2save, len(images), len(img_list), fps), all_images, fps=fps)
+    imageio.mimsave('{}/animation_interp_{}_fps_{}.gif'.format(dir2save, len(images), fps), all_images, fps=fps)
 
 
 def load_config(opt):
@@ -98,6 +98,7 @@ def load_image_order(opt):
     img_animation_list = [line.strip() for line in img_animation_list]
     return img_animation_list
 
+
 if __name__ == '__main__':
 
     opt = TestOptions().parse()
@@ -127,16 +128,21 @@ if __name__ == '__main__':
     print("Creating keypoints...")
     img_label_between = make_kps_in_between(img_animation_list, kp_dict, opt.num_interpolations)
     img_labels = [functions.generate_keypoint_condition(kpd, opt) for kpd in img_label_between]
-    img_labels = torch.stack(img_labels, 0).squeeze().cuda()
-    num_batches = (img_labels.shape[0] // opt.batch_size) + 1
+    layered_img_labels = []
+    for layer in range(opt.num_kp_layers):
+        layered_img_labels.append(torch.stack([img_labels[idx][layer] for idx in range(len(img_labels))], 0).squeeze().cuda())
+    num_batches = (layered_img_labels[0].shape[0] // opt.batch_size) + 1
 
     print("Loading model...")
     netG = functions.load_model(opt).cuda()
 
-    print("Generating {} images...".format(img_labels.shape[0]))
+    print("Generating {} images...".format(layered_img_labels[0].shape[0]))
     with torch.no_grad():
         for batch in range(num_batches):
             _img_labels = img_labels[batch * opt.batch_size : batch * opt.batch_size + opt.batch_size]
+            _img_labels = []
+            for idx in range(opt.num_kp_layers):
+                _img_labels.append(layered_img_labels[idx][batch * opt.batch_size : batch * opt.batch_size + opt.batch_size])
             _image = netG(_img_labels)
             _image = torch.nn.Upsample(size=[opt.image_size_y, opt.image_size_x], mode='nearest')(_image).cpu()
             if batch == 0:

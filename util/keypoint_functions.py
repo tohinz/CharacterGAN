@@ -20,32 +20,21 @@ def get_keypoints():
 
 
 def load_layer_information(opt):
-    if opt.num_keypoints == 16:
-        # 16 kps
-        layer_0 = [1, 3, 6, 8, 10, 12]
-        layer_1 = [0, 5, 14, 15]
-        layer_2 = [2, 4, 7, 9, 11, 13]
-    elif opt.num_keypoints == 14:
-        # 14 kps
-        layer_0 = [1, 3, 6, 8, 10, 12]
-        layer_1 = [0, 5]
-        layer_2 = [2, 4, 7, 9, 11, 13]
-    elif opt.num_keypoints == 12:
-        # 12 kps
-        layer_0 = [2, 4, 7, 9, 12]
-        layer_1 = [0, 5, 13]
-        layer_2 = [1, 3, 6, 8, 10, 11]
-    elif opt.num_keypoints == 10:
-        # 10 kps
-        layer_0 = [1, 3, 6, 8]
-        layer_1 = [0, 5]
-        layer_2 = [2, 4, 7, 9]
-    elif opt.num_keypoints == 9:
-        # 9 kps
-        layer_0 = [1, 3, 6]
-        layer_1 = [0, 5, 8]
-        layer_2 = [2, 4, 7]
-    return layer_0, layer_1, layer_2
+    keypoints = get_keypoints()
+    layers = [[] for i in range(opt.num_kp_layers)]
+
+    with open(os.path.join(opt.dataroot, "keypoints_layers.csv"), "r") as f:
+        lines = f.readlines()
+
+    for line in lines:
+        l = line.split(",")
+        current_keypoint = l[0]
+        layer_idx = int(l[1])
+        layers[layer_idx].append(keypoints[current_keypoint])
+    for layer in layers:
+        layer.sort()
+    return layers
+
 
 # add a connecting line between keypoints
 def add_skeleton(kps_2d, kps_1d, skeleton, opt):

@@ -65,6 +65,7 @@ dataset = KPDataset()
 dataset.initialize(opt)
 dataloader = iter(dataset.createInfiniteLoader())
 print("Initialize data set...done ({} training images)".format(len(dataset)))
+print("Start training. Saving to: {}".format(opt.dir2save))
 
 # start training
 for iter in tqdm(range(0, opt.niter + opt.niter_decay)):
@@ -77,9 +78,9 @@ for iter in tqdm(range(0, opt.niter + opt.niter_decay)):
     else:
         losses, generated = model(data['keypoint'], data['image'])
 
-    # calculate final loss scalar
     loss_D = (losses['D_fake'] + losses['D_real']) * 0.5
     loss_G = losses['G_GAN'] + losses.get('G_GAN_Feat', 0) + losses.get('G_VGG', 0)
+
 
     ############### Backward Pass ####################
     # update generator weights
