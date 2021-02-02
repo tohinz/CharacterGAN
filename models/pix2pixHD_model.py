@@ -23,11 +23,11 @@ class Pix2PixHDModel(torch.nn.Module):
         ##### define networks        
         # Generator network
         netG_input_nc = input_nc
-        self.netG = networks.define_G(netG_input_nc, opt.output_nc, opt.ngf, norm=opt.norm, gpu_ids=self.gpu_ids)
+        self.netG = networks.define_G(netG_input_nc, opt.output_nc, opt, opt.ngf, norm=opt.norm, gpu_ids=self.gpu_ids)
 
         # Discriminator network
         if self.isTrain:
-            netD_input_nc = input_nc + opt.output_nc
+            netD_input_nc = opt.num_kp_layers * input_nc + opt.output_nc
             self.netD = networks.define_D(netD_input_nc, opt.ndf, opt.n_layers_D, opt.norm,
                                           num_D=opt.num_D, gpu_ids=self.gpu_ids)
 
@@ -49,10 +49,10 @@ class Pix2PixHDModel(torch.nn.Module):
 
     def forward(self, label, image):
         # Prepare inputs
-        input_label = label.detach()
+        input_label = [l.detach() for l in label]
         real_image = image.detach()
         if self.use_cuda:
-            input_label = input_label.cuda()
+            input_label = [l.cuda() for l in input_label]
             real_image = real_image.cuda()
 
         # Fake Generation
@@ -61,6 +61,7 @@ class Pix2PixHDModel(torch.nn.Module):
             fake_image = self.upsample(fake_image)
 
         # Fake Detection and Loss
+        input_label = torch.cat(input_label, 1)
         pred_fake = self.netD.forward(torch.cat((input_label, fake_image), dim=1).detach())
         loss_D_fake = self.criterionGAN(pred_fake, False)
 
@@ -88,9 +89,9 @@ class Pix2PixHDModel(torch.nn.Module):
                 "D_real": loss_D_real, "D_fake": loss_D_fake}, fake_image
 
     def inference(self, label):
-        input_label = label.detach()
+        input_label = [l.detach() for l in label]
         if self.use_cuda:
-            input_label = input_label.cuda()
+            input_label = [l.cuda() for l in input_label]
 
         with torch.no_grad():
             fake_image = self.netG.forward(input_label)

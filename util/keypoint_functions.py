@@ -19,16 +19,47 @@ def get_keypoints():
     return keypoint_dict.get_keypoints()
 
 
+def load_layer_information(opt):
+    if opt.num_keypoints == 16:
+        # 16 kps
+        layer_0 = [1, 3, 6, 8, 10, 12]
+        layer_1 = [0, 5, 14, 15]
+        layer_2 = [2, 4, 7, 9, 11, 13]
+    elif opt.num_keypoints == 14:
+        # 14 kps
+        layer_0 = [1, 3, 6, 8, 10, 12]
+        layer_1 = [0, 5]
+        layer_2 = [2, 4, 7, 9, 11, 13]
+    elif opt.num_keypoints == 12:
+        # 12 kps
+        layer_0 = [2, 4, 7, 9, 12]
+        layer_1 = [0, 5, 13]
+        layer_2 = [1, 3, 6, 8, 10, 11]
+    elif opt.num_keypoints == 10:
+        # 10 kps
+        layer_0 = [1, 3, 6, 8]
+        layer_1 = [0, 5]
+        layer_2 = [2, 4, 7, 9]
+    elif opt.num_keypoints == 9:
+        # 9 kps
+        layer_0 = [1, 3, 6]
+        layer_1 = [0, 5, 8]
+        layer_2 = [2, 4, 7]
+    return layer_0, layer_1, layer_2
+
 # add a connecting line between keypoints
 def add_skeleton(kps_2d, kps_1d, skeleton, opt):
     for idx in kps_1d.keys():
         start_x = int(kps_1d[idx][0])
         start_y = int(kps_1d[idx][1])
         for end in skeleton[idx]:
-            end_x = int(kps_1d[end][0])
-            end_y = int(kps_1d[end][1])
-            line_x, line_y = weighted_line(start_x, start_y, end_x, end_y, rmin=0, rmax=max(kps_2d.shape[1:]))
-            kps_2d[:, line_y, line_x] = 1
+            try:
+                end_x = int(kps_1d[end][0])
+                end_y = int(kps_1d[end][1])
+                line_x, line_y = weighted_line(start_x, start_y, end_x, end_y, rmin=0, rmax=max(kps_2d.shape[1:]))
+                kps_2d[:, line_y, line_x] = 1
+            except KeyError:
+                continue
     return kps_2d
 
 

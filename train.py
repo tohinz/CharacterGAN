@@ -114,8 +114,9 @@ for iter in tqdm(range(0, opt.niter + opt.niter_decay)):
         writer.add_image('generated_images', grid, iter)
 
         keypoints = data['keypoint']
-        grid = make_grid(keypoints, nrow=min(5, opt.batch_size), normalize=True, range=(-1, 1))
-        writer.add_image('keypoints', grid, iter)
+        for layer in range(opt.num_kp_layers):
+            grid = make_grid(keypoints[layer], nrow=min(5, opt.batch_size), normalize=True, range=(-1, 1))
+            writer.add_image('keypoints_{}'.format(layer), grid, iter)
 
         # log loss values
         writer.add_scalar('Loss/D/real', losses['D_real'].item(), iter)

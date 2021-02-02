@@ -26,22 +26,24 @@ class BaseOptions():
         self.parser.add_argument('--norm', type=str, default='instance', help='instance normalization or batch normalization')        
         self.parser.add_argument('--data_type', default=32, type=int, choices=[8, 16, 32], help="Supported data type i.e. 8, 16, 32 bit")
         self.parser.add_argument('--fp16', action='store_true', default=False, help='train with AMP')
-        # self.parser.add_argument('--image_size_x', type=int, default=250, help='image size in pixel')
-        # self.parser.add_argument('--image_size_y', type=int, default=250, help='image size in pixel')
+
+        # keypoint specifics
         self.parser.add_argument('--num_keypoints', type=int, default=10, help='number of keypoints per image')
         self.parser.add_argument('--gaussian_r', type=float, help='keypoint scaling', default=0.05)
         self.parser.add_argument('--gaussian_s', type=float, help='keypoint scaling', default=0.015)
+        self.parser.add_argument('--num_kp_layers', type=int, default=3, help='how many keypoint layers')
 
         # input/output sizes
         self.parser.add_argument('--input_nc', type=int, default=3, help='# of input image channels')
-        self.parser.add_argument('--output_nc', type=int, default=4, help='# of output image channels')
+        self.parser.add_argument('--output_nc', type=int, default=3, help='# of output image channels')
 
         # for setting inputs
         self.parser.add_argument('--dataroot', type=str, default='./datasets/')
         self.parser.add_argument('--no_flip', action='store_true', help='if specified, do not flip the images for data argumentation')
 
         # for generator
-        self.parser.add_argument('--ngf', type=int, default=64, help='# of gen filters in first conv layer')
+        self.parser.add_argument('--ngf', type=int, default=32, help='# of gen filters in first conv layer')
+        self.parser.add_argument('--adaptive_scaling', type=str2bool, help='scale feautures conditioned on keypoints', default=True)
 
         # for discriminators
         self.parser.add_argument('--num_D', type=int, default=2, help='number of discriminators to use')
@@ -50,7 +52,7 @@ class BaseOptions():
         self.parser.add_argument('--lambda_feat', type=float, default=10.0, help='weight for feature matching loss')
 
         # additional conditioning
-        self.parser.add_argument('--mask', type=str2bool, help='use mask', default=True)
+        self.parser.add_argument('--mask', type=str2bool, help='use mask', default=False)
         self.parser.add_argument('--skeleton', type=str2bool, help='use skeleton with keypoints', default=True)
 
         self.initialized = True

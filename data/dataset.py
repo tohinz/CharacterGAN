@@ -17,48 +17,69 @@ class KPDataset(data.Dataset):
         self.root = opt.dataroot
 
         self.colors = keypoint_functions.get_keypoint_colors()
+        self.keypoint_layers = keypoint_functions.load_layer_information(opt)
 
         images, keypoints_1d, keypoints_2d = functions.read_images_and_keypoints(opt)
+
+        # each keypoint condition for an image is now a list where each list contains the information
+        # about the keypoints in the given layer for the given image
+        layered_keypoints_2d = []
+        for kp in range(len(keypoints_2d)):
+            current_keypoint_2d = []
+            for layer in self.keypoint_layers:
+                current_keypoint_2d.append(keypoints_2d[kp][[layer], :, :].squeeze())
+            layered_keypoints_2d.append(current_keypoint_2d)
+        self.keypoints_2d = layered_keypoints_2d
+
+        layered_keypoints_1d = []
+        for kp in range(len(keypoints_1d)):
+            current_keypoint_1d = []
+            for layer in self.keypoint_layers:
+                current_keypoint_1d.append({x: keypoints_1d[kp][x] for x in layer})
+            layered_keypoints_1d.append(current_keypoint_1d)
+        self.keypoints_1d = layered_keypoints_1d
 
         if opt.mask:
             self.images = [Image.fromarray(img, 'RGBA') for img in images]
         else:
             self.images = [Image.fromarray(img) for img in images]
-        self.keypoints_1d = keypoints_1d
-        self.keypoints_2d = keypoints_2d
+
         if opt.skeleton:
             self.skeleton = keypoint_functions.load_skeleton_info(opt)
 
-        self.keypoints_2d = self.get_keypoints_as_rgb_image()
-        self.size = (self.keypoints_2d[0].size[0], self.keypoints_2d[0].size[1])
+        self.keypoints_2d = self.get_layered_keypoints_as_images()
+        self.size = (self.keypoints_2d[0][0].size[0], self.keypoints_2d[0][0].size[1])
         self.image_placeholder = np.zeros((3, self.size[0], self.size[1]))
 
         self.dataset_size = len(self.images)
 
-    def get_keypoints_as_rgb_image(self):
-        kp_path = os.path.join(self.opt.dir2save, "keypoints")
+    def get_layered_keypoints_as_images(self):
+        kp_path = os.path.join(self.opt.dir2save, "layered_keypoints")
         functions.makedir(kp_path)
 
         keypoints_rgb = []
         for i, a_path in enumerate(self.keypoints_2d):
-            a_path_rgb = np.zeros((3, a_path.shape[1], a_path.shape[2]))
+            img_layers = []
+            for layer_idx in range(len(self.keypoint_layers)):
+                a_path_rgb = np.zeros((3, a_path[0].shape[1], a_path[0].shape[2]))
 
-            for idx in range(self.opt.num_keypoints):
-                current_kp = np.expand_dims(a_path[idx], 0)
-                current_color = np.zeros_like(a_path_rgb)
-                current_color[0] = self.colors[idx][0]
-                current_color[1] = self.colors[idx][1]
-                current_color[2] = self.colors[idx][2]
-                a_path_rgb = a_path_rgb + (np.repeat(current_kp, repeats=3, axis=0) * current_color)
+                for idx in range(a_path[layer_idx].shape[0]):
+                    current_kp = np.expand_dims(a_path[layer_idx][idx], 0)
+                    current_color = np.zeros_like(a_path_rgb)
+                    current_color[0] = self.colors[idx][0]
+                    current_color[1] = self.colors[idx][1]
+                    current_color[2] = self.colors[idx][2]
+                    a_path_rgb = a_path_rgb + (np.repeat(current_kp, repeats=3, axis=0) * current_color)
 
-            if self.opt.skeleton:
-                a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, self.keypoints_1d[i], self.skeleton, self.opt)
+                    if self.opt.skeleton:
+                        a_path_rgb = keypoint_functions.add_skeleton(a_path_rgb, self.keypoints_1d[i][layer_idx], self.skeleton, self.opt)
 
-            img = a_path_rgb * 255.
-            img = img.astype(np.uint8)
-            img = Image.fromarray(np.transpose(img, (1, 2, 0)))
-            img.save(os.path.join(kp_path, "kp_{}.jpg".format(i)))
-            keypoints_rgb.append(img)
+                img = a_path_rgb * 255.
+                img = img.astype(np.uint8)
+                img = Image.fromarray(np.transpose(img, (1, 2, 0)))
+                img.save(os.path.join(kp_path, "kp_{}_{}.jpg".format(i, layer_idx)))
+                img_layers.append(img)
+            keypoints_rgb.append(img_layers)
 
         return keypoints_rgb
 
@@ -69,7 +90,7 @@ class KPDataset(data.Dataset):
         ### get keypoint conditioning
         kps_2d = self.keypoints_2d[index]
         transform_kp = get_transform(self.opt, params, kps=True)
-        kps_2d = transform_kp(kps_2d)
+        kps_2d = [transform_kp(kp) for kp in kps_2d]
 
         ### get real image
         image = self.images[index]

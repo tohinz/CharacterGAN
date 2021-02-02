@@ -28,9 +28,9 @@ def get_norm_layer(norm_type='instance'):
     return norm_layer
 
 
-def define_G(input_nc, output_nc, ngf, n_downsample_global=4, n_blocks_global=9, norm='instance', gpu_ids=[]):
+def define_G(input_nc, output_nc, opt, ngf, n_downsample_global=4, n_blocks_global=9, norm='instance', gpu_ids=[]):
     norm_layer = get_norm_layer(norm_type=norm)
-    netG = GlobalGenerator(input_nc, output_nc, ngf, n_downsample_global, n_blocks_global, norm_layer, norm=norm)
+    netG = GlobalGenerator(input_nc, output_nc, opt, ngf, n_downsample_global, n_blocks_global, norm_layer, norm=norm)
     if len(gpu_ids) > 0:
         assert(torch.cuda.is_available())   
         netG.cuda(gpu_ids[0])
@@ -154,12 +154,13 @@ class ResnetBlock(nn.Module):
 
 # Global Generator
 class GlobalGenerator(nn.Module):
-    def __init__(self, input_nc, output_nc, ngf=64, n_downsampling=4, n_blocks=9, norm_layer=nn.BatchNorm2d,
+    def __init__(self, input_nc, output_nc, opt, ngf=32, n_downsampling=4, n_blocks=9, norm_layer=nn.BatchNorm2d,
                  padding_type='reflect', norm=""):
         assert(n_blocks >= 0)
+        self.norm  = norm
         super(GlobalGenerator, self).__init__()        
         activation = nn.ReLU(True)
-        self.norm = norm
+        self.adaptive_scaling = opt.adaptive_scaling
 
         model = [nn.ReflectionPad2d(3), nn.Conv2d(input_nc, ngf, kernel_size=7, padding=0), norm_layer(ngf),
                  activation]
@@ -174,18 +175,76 @@ class GlobalGenerator(nn.Module):
         for i in range(n_blocks):
             model += [ResnetBlock(ngf * mult, padding_type=padding_type, activation=activation, norm_layer=norm_layer, norm=norm)]
 
+        self.keypoint_model = nn.Sequential(*model)
+        if self.adaptive_scaling:
+            self.scale_features = ScaleFeatures(ngf * mult, opt=opt)
+
         ### upsample
-        for i in range(n_downsampling):
+        model = []
+        mult = 2 ** (n_downsampling)
+        model += [nn.ConvTranspose2d(3 * ngf * mult, int(ngf * mult / 2), kernel_size=3, stride=2, padding=1, output_padding=1),
+                  norm_layer(int(ngf * mult / 2)), activation]
+
+        for i in range(1, n_downsampling):
             mult = 2 ** (n_downsampling - i)
             model += [nn.ConvTranspose2d(ngf * mult, int(ngf * mult / 2), kernel_size=3, stride=2, padding=1,
                                          output_padding=1),
                       norm_layer(int(ngf * mult / 2)), activation]
         model += [nn.ReflectionPad2d(3), nn.Conv2d(ngf, output_nc, kernel_size=7, padding=0), nn.Tanh()]
 
-        self.model = nn.Sequential(*model)
+        self.upsample_model = nn.Sequential(*model)
 
     def forward(self, input):
-        return self.model(input)
+        batch_size = input[0].shape[0]
+        inputs_concat = torch.cat(input, 0)
+        layer_concat_outputs = self.keypoint_model(inputs_concat)
+        layer_outputs = torch.split(layer_concat_outputs, batch_size)
+
+        if self.adaptive_scaling:
+            layer_outputs = self.scale_features(layer_outputs, input)
+
+        layers = torch.cat(layer_outputs, 1)
+        return self.upsample_model(layers)
+
+
+##############################################################################
+# Adaptive Scaling
+##############################################################################
+class ScaleFeatures(nn.Module):
+    def __init__(self, norm_nc, opt, ks=3, label_nc=3):
+        super().__init__()
+
+        self.param_free_norm = nn.InstanceNorm2d(norm_nc, affine=False)
+
+        # The dimension of the intermediate embedding space. Yes, hardcoded.
+        nhidden = 64
+
+        pw = ks // 2
+        self.mlp_shared = nn.Sequential(
+            nn.Conv2d(label_nc*3, nhidden, kernel_size=ks, padding=pw),
+            nn.ReLU()
+        )
+
+        self.gammas = torch.nn.ModuleList()
+        self.betas = torch.nn.ModuleList()
+        for idx in range(opt.num_kp_layers):
+            self.gammas.append(nn.Conv2d(nhidden, norm_nc, kernel_size=ks, padding=pw))
+            self.betas.append(nn.Conv2d(nhidden, norm_nc, kernel_size=ks, padding=pw))
+
+    def forward(self, feature_list, keypoints):
+        # get embedding of all keypoint information
+        keypoints = torch.cat(keypoints, 1)
+        keypoints = nn.functional.interpolate(keypoints, size=feature_list[0].size()[2:], mode='nearest')
+        actv = self.mlp_shared(keypoints)
+
+        # scale individual keypoint features
+        scaled_features = []
+        for idx in range(len(feature_list)):
+            gamma = self.gammas[idx](actv)
+            beta = self.betas[idx](actv)
+            scaled_features.append(feature_list[idx] * (1 + gamma) + beta)
+
+        return scaled_features
 
 
 ##############################################################################
