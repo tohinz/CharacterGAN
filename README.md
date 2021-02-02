@@ -46,13 +46,21 @@ pip install -r requirements.txt
 
 ### Training Data
 All training data for a given character should be in a single folder.
-Concretely: the folder should contain all training images (all in the same resolution), a file called `keypoints.csv`, and (potentially) a file called `keypoints_skeleton.csv`. We used [this website](https://www.makesense.ai/) to label our images but there are of course other possibilities.
+We used [this website](https://www.makesense.ai/) to label our images but there are of course other possibilities.
+
+The folder should contain:
+* all training images (all in the same resolution),
+* a file called `keypoints.csv` (containing the keypoints for each image),
+* a file called `keypoints_skeleton.csv` (containing skeleton information, i.e. how keypoints are connected with each other), and
+* a file called `keypoints_layers.csv` (containing the information about which layer each keypoint resides in).
 
 The structure of the `keypoints.csv` file is (no header): `keypoint_label,x_coord,y_coord,file_name`.
 The first column describes the keypoint label (e.g. *head*), the next two columns give the location of the keypoint, and the final column states which training image this keypoint belongs to.
 
 The structure of the `keypoints_skeleton.csv` file is (no header): `keypoint,connected_keypoint,connected_keypoint,...`.
 The first column describes which keypoint we are describing in this line, the following columns describe which keypoints are connected to that keypoint (e.g. *elbow, shoulder, hand* would state that the *elbow* keypoint should be connected to the *shoulder* keypoint and the *hand* keypoint).
+
+The structure of the `keypoints_layers.csv` file is (no header): `keypoint,connected_keypoint,connected_keypoint,...`.
 
 See our example training data in `datasets` for examples of both files.
 
