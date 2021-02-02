@@ -60,7 +60,8 @@ The first column describes the keypoint label (e.g. *head*), the next two column
 The structure of the `keypoints_skeleton.csv` file is (no header): `keypoint,connected_keypoint,connected_keypoint,...`.
 The first column describes which keypoint we are describing in this line, the following columns describe which keypoints are connected to that keypoint (e.g. *elbow, shoulder, hand* would state that the *elbow* keypoint should be connected to the *shoulder* keypoint and the *hand* keypoint).
 
-The structure of the `keypoints_layers.csv` file is (no header): `keypoint,connected_keypoint,connected_keypoint,...`.
+The structure of the `keypoints_layers.csv` file is (no header): `keypoint,layer`.
+"Keypoint" is the keypoint label (same as used in the previous two files) and "layer" is an integer value desribing which layer the keypoint resides in.
 
 See our example training data in `datasets` for examples of both files.
 
