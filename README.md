@@ -79,8 +79,8 @@ You can adjust several parameters at train time to possibly improve your results
 
 * `--name` to change the name of the folder in which the results are stored (default is `CharacterGAN-Timestamp`
 * `--niter 4000` and `--niter_decay 4000` to adjust the number of training steps (`niter_decay`is the number of training steps during which we reduce the learning rate linearly; default is 8000 for both, but you can get good results with fewer iterations)
-* `--mask False --output_nc 3` to train without a mask
-* `--skeleton False`to train without skeleton information
+* `--mask True --output_nc 4` to train without a mask
+* `--skeleton False` to train without skeleton information
 * `--bkg_color 0` to set the background color of the training images to *black* (default is white, only important if you train with a mask)
 * `--batch_size 10` to train with a different batch size (default is 5)
 
