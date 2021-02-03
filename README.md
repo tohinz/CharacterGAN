@@ -5,7 +5,7 @@ Implementation of the paper [*"CharacterGAN: Few-Shot Keypoint Character Animati
 Our model can be trained on only a *few images (e.g. 10) of a given character* labeled with user-chosen *keypoints*.
 The resulting model can be used to *animate* the character on which it was trained by interpolating between its poses specified by their keypoints.
 We can also *repose* characters by simply moving the keypoints into the desired positions.
-To train the model all we need are few images depicting the character in diverse poses from the same viewpoint, keypoints, and a file that describes how the keypoints are connected (the characters *skeleton*).
+To train the model all we need are few images depicting the character in diverse poses from the same viewpoint, keypoints, a file that describes how the keypoints are connected (the characters *skeleton*) and which keypoints lie in the same layer.
 
 ### Examples
 
