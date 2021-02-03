@@ -68,9 +68,10 @@ See our example training data in `datasets` for examples of both files.
 We provide two examples (produced by [Zuzana Studená](https://artemisfilm.webnode.com/)) for training, located in `datasets`.
 Our other examples were trained on data from [Adobe Stock](https://stock.adobe.com/) and I currently have no license to distribute them.
 You can purchase them here:
+* [Man](https://stock.adobe.com/images/running-man-cycle-of-animation-for-men-s-running-2d-cartoon-character/325376414): we used all images
 * [Dog](https://stock.adobe.com/images/great-dane-dog-run-cycle-animation-sequence/292133555): we used all images
-* [Cow](https://stock.adobe.com/images/cow-walk-cycle-animation-frames-loop-animation-sequence-sprite-sheet/326705734): we used the first eight images
 * [Ostrich](https://stock.adobe.com/images/ostrich-run-cycle-animation-sequence-loop-animation-sprite-sheet/326702824): we used the first nine images
+* [Cow](https://stock.adobe.com/images/cow-walk-cycle-animation-frames-loop-animation-sequence-sprite-sheet/326705734): we used the first eight images
 
 There are also several websites where you can download Sprite sheets for free.
 
