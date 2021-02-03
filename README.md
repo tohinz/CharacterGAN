@@ -69,17 +69,18 @@ See our example training data in `datasets` for examples of both files.
 To train a model with the default parameters from our paper run:
 
 ```
-python train.py --gpu_ids 0 --num_keypoints 16 --dataroot datasets/Dog --fp16
+python train.py --gpu_ids 0 --num_keypoints 14 --dataroot datasets/Watercolor-Man --fp16 --name Watercolor-Man
 ```
 
 Training one model should take about 60 (FP16) to 90 (FP32) minutes on an NVIDIA GeForce GTX 2080Ti.
+You can usually use fewer iterations for training and still achieve good results (see next section).
 
 ### Training Parameters
 You can adjust several parameters at train time to possibly improve your results.
 
-* `--name` to change the name of the folder in which the results are stored (default is `CharacterGAN-Timestamp`
+* `--name` to change the name of the folder in which the results are stored (default is `CharacterGAN-Timestamp`)
 * `--niter 4000` and `--niter_decay 4000` to adjust the number of training steps (`niter_decay`is the number of training steps during which we reduce the learning rate linearly; default is 8000 for both, but you can get good results with fewer iterations)
-* `--mask True --output_nc 4` to train without a mask
+* `--mask True --output_nc 4` to train with a mask
 * `--skeleton False` to train without skeleton information
 * `--bkg_color 0` to set the background color of the training images to *black* (default is white, only important if you train with a mask)
 * `--batch_size 10` to train with a different batch size (default is 5)
@@ -101,10 +102,10 @@ At test time you can either use the model to animate the character or use our in
 To animate a character (or create interpolations between two images):
 
 ```
-python animate_example.py --gpu_ids 0 --model_path checkpoints/Dog-.../ --img_animation_list datasets/Dog/animation_list.txt --dataroot datasets/Dog
+python animate_example.py --gpu_ids 0 --model_path checkpoints/Watercolor-Man-.../ --img_animation_list datasets/Watercolor-Man/animation_list.txt --dataroot datasets/Watercolor-Man
 ```
 
-`--img_animation_list` points to a file that lists the images that should be used for animation. The file should contain one file name per line pointing to an image in `dataroot`. The model then generates an animation by interpolating between the images in the given order. See `datasets/Dog/animation_list.txt` for an example.
+`--img_animation_list` points to a file that lists the images that should be used for animation. The file should contain one file name per line pointing to an image in `dataroot`. The model then generates an animation by interpolating between the images in the given order. See `datasets/Watercolor-Man/animation_list.txt` for an example.
 
 You can add `--draw_kps` to visualize the keypoints in the animation.
 You can specifiy the gif parameters by setting `--num_interpolations 10` and `--fps 5`.
@@ -114,7 +115,7 @@ You can specifiy the gif parameters by setting `--num_interpolations 10` and `--
 To run the interactive GUI:
 
 ```
-python visualizer.py --gpu_ids 0 --model_path checkpoints/Dog-.../
+python visualizer.py --gpu_ids 0 --model_path checkpoints/Watercolor-Man-.../
 ```
 
 Set `--gpu_ids -1` to run the model on a CPU.
