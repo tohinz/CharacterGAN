@@ -102,7 +102,7 @@ At test time you can either use the model to animate the character or use our in
 To animate a character (or create interpolations between two images):
 
 ```
-python animate_example.py --gpu_ids 0 --model_path checkpoints/Watercolor-Man-.../ --img_animation_list datasets/Watercolor-Man/animation_list.txt --dataroot datasets/Dog
+python animate_example.py --gpu_ids 0 --model_path checkpoints/Watercolor-Man-.../ --img_animation_list datasets/Watercolor-Man/animation_list.txt --dataroot datasets/Watercolor-Man
 ```
 
 `--img_animation_list` points to a file that lists the images that should be used for animation. The file should contain one file name per line pointing to an image in `dataroot`. The model then generates an animation by interpolating between the images in the given order. See `datasets/Watercolor-Man/animation_list.txt` for an example.
