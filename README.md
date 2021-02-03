@@ -66,8 +66,8 @@ The structure of the `keypoints_layers.csv` file is (no header): `keypoint,layer
 See our example training data in `datasets` for examples of both files.
 
 We provide two examples (produced by [Zuzana Studená](https://artemisfilm.webnode.com/)) for training, located in `datasets`.
-Our other examples were trained on data from [Adobe Stock](https://stock.adobe.com/) and I currently have no license to distribute them.
-You can purchase them here:
+Our other examples were trained on data from [Adobe Stock](https://stock.adobe.com/) or from [Character Animator](https://www.adobe.com/products/character-animator.html) and I currently have no license to distribute them.
+You can purchase the Stock data here:
 * [Man](https://stock.adobe.com/images/running-man-cycle-of-animation-for-men-s-running-2d-cartoon-character/325376414): we used all images
 * [Dog](https://stock.adobe.com/images/great-dane-dog-run-cycle-animation-sequence/292133555): we used all images
 * [Ostrich](https://stock.adobe.com/images/ostrich-run-cycle-animation-sequence-loop-animation-sprite-sheet/326702824): we used the first nine images
