@@ -78,7 +78,7 @@ You can usually use fewer iterations for training and still achieve good results
 ### Training Parameters
 You can adjust several parameters at train time to possibly improve your results.
 
-* `--name` to change the name of the folder in which the results are stored (default is `CharacterGAN-Timestamp`
+* `--name` to change the name of the folder in which the results are stored (default is `CharacterGAN-Timestamp`)
 * `--niter 4000` and `--niter_decay 4000` to adjust the number of training steps (`niter_decay`is the number of training steps during which we reduce the learning rate linearly; default is 8000 for both, but you can get good results with fewer iterations)
 * `--mask True --output_nc 4` to train without a mask
 * `--skeleton False` to train without skeleton information
