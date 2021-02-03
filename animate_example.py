@@ -95,7 +95,8 @@ def make_kps_in_between(img_list, kp_dict, num_in_between=10):
 def load_image_order(opt):
     with open(opt.img_animation_list, "r") as f:
         img_animation_list = f.readlines()
-    img_animation_list = [line.strip() for line in img_animation_list]
+    img_animation_list = [line.strip() for line in img_animation_list if line]
+    img_animation_list = [img for img in img_animation_list if img != ""]
     return img_animation_list
 
 
