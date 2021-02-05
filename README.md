@@ -1,6 +1,7 @@
 # CharacterGAN
 
-Implementation of the paper [*"CharacterGAN: Few-Shot Keypoint Character Animation and Reposing"* by Tobias Hinz, Matthew Fisher, Oliver Wang, Eli Shechtman, and Stefan Wermter](google.com) (open with Adobe Acrobat or similar to see visualizations). Supplementary material can be found [here](google.com).
+Implementation of the paper [*"CharacterGAN: Few-Shot Keypoint Character Animation and Reposing"* by Tobias Hinz, Matthew Fisher, Oliver Wang, Eli Shechtman, and Stefan Wermter](google.com) (open with Adobe Acrobat or similar to see visualizations). Supplementary material can be found [supplementary/
+CharacterGAN_Supplementary.pdf](google.com).
 
 Our model can be trained on only a *few images (e.g. 10) of a given character* labeled with user-chosen *keypoints*.
 The resulting model can be used to *animate* the character on which it was trained by interpolating between its poses specified by their keypoints.
