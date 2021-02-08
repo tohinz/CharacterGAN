@@ -1,6 +1,6 @@
 # CharacterGAN
 
-Implementation of the paper [*"CharacterGAN: Few-Shot Keypoint Character Animation and Reposing"* by Tobias Hinz, Matthew Fisher, Oliver Wang, Eli Shechtman, and Stefan Wermter](google.com) (open with Adobe Acrobat or similar to see visualizations).
+Implementation of the paper [*"CharacterGAN: Few-Shot Keypoint Character Animation and Reposing"* by Tobias Hinz, Matthew Fisher, Oliver Wang, Eli Shechtman, and Stefan Wermter](https://arxiv.org/abs/2102.03141) (open with Adobe Acrobat or similar to see visualizations).
 
 Supplementary material can be found [here](supplementary/CharacterGAN_Supplementary.pdf).
 
@@ -146,10 +146,10 @@ We would also like to thank [Zuzana Studená](https://artemisfilm.webnode.com/) 
 If you found this code useful please consider citing:
 
 ```
-@article{hinz2021improved,
+@article{hinz2021character,
     author    = {Hinz, Tobias and Fisher, Matthew and Wang, Oliver and Shechtman, Eli and Wermter, Stefan},
     title     = {CharacterGAN: Few-Shot Keypoint Character Animation and Reposing},
-    journal = {ArXiV},
+    journal = {arXiv preprint arXiv:2102.03141},
     year      = {2021}
 }
 ```
