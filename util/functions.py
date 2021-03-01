@@ -63,7 +63,7 @@ def save_image(name, image):
 
 
 def read_images_and_keypoints(opt):
-    imgs = glob.glob(os.path.join(opt.dataroot, "*.jpg")) + glob.glob(os.path.join(opt.dataroot, "*.png"))
+    imgs = glob.glob(os.path.join(opt.dataroot, "*.jpg")) + glob.glob(os.path.join(opt.dataroot, "*.png")) + glob.glob(os.path.join(opt.dataroot, "*.jpeg"))
     keypoints = keypoint_functions.load_keypoints(opt)
 
     images = []
