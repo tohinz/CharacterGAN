@@ -30,7 +30,7 @@ except OSError:
     pass
 
 # get resolution of training images
-_training_imgs = glob.glob(os.path.join(opt.dataroot, "*.jpg")) + glob.glob(os.path.join(opt.dataroot, "*.png"))
+_training_imgs = glob.glob(os.path.join(opt.dataroot, "*.jpg")) + glob.glob(os.path.join(opt.dataroot, "*.png")) + glob.glob(os.path.join(opt.dataroot, "*.jpeg"))
 _img = img.imread(_training_imgs[0])
 opt.image_size_x = _img.shape[0]
 opt.image_size_y = _img.shape[1]
