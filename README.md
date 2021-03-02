@@ -46,7 +46,7 @@ pip install -r requirements.txt
 
 ## Training
 
-### Training Data
+### Training Data (See `datasets` Folder for Examples)
 All training data for a given character should be in a single folder.
 We used [this website](https://www.makesense.ai/) to label our images but there are of course other possibilities.
 
