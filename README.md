@@ -15,7 +15,7 @@ To train the model all we need are few images depicting the character in diverse
 
 Training Images |  12         |  15          |  9         |  12          |  15         |  15          |  8
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/maddy.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/stock_man.gif) |  ![robot_animation](gifs/evans.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)
+Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/dino.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/stock_man.gif) |  ![robot_animation](gifs/ape.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)
 
 <br/><br/>
 
@@ -68,12 +68,14 @@ The structure of the `keypoints_layers.csv` file is (no header): `keypoint,layer
 See our example training data in `datasets` for examples of both files.
 
 We provide two examples (produced by [Zuzana Studená](https://artemisfilm.webnode.com/)) for training, located in `datasets`.
+We also provide the Dino example (taken from [https://opengameart.org](https://opengameart.org/content/free-dino-sprites)) from which we used the 10 "Walk" images for training.
 Our other examples were trained on data from [Adobe Stock](https://stock.adobe.com/) or from [Character Animator](https://www.adobe.com/products/character-animator.html) and I currently have no license to distribute them.
 You can purchase the Stock data here:
 * [Man](https://stock.adobe.com/images/running-man-cycle-of-animation-for-men-s-running-2d-cartoon-character/325376414): we used all images
 * [Dog](https://stock.adobe.com/images/great-dane-dog-run-cycle-animation-sequence/292133555): we used all images
 * [Ostrich](https://stock.adobe.com/images/ostrich-run-cycle-animation-sequence-loop-animation-sprite-sheet/326702824): we used the first nine images
 * [Cow](https://stock.adobe.com/images/cow-walk-cycle-animation-frames-loop-animation-sequence-sprite-sheet/326705734): we used the first eight images
+* [Ape](https://stock.adobe.com/images/the-ape-game-character/185363225): we used the images from the second, fourth, and the first three images of the fifth row
 
 There are also several websites where you can download Sprite sheets for free.
 
@@ -141,6 +143,7 @@ The easiest way to do this is to merge all your training images into a single la
 Our implementation uses code from [Pix2PixHD](https://github.com/NVIDIA/pix2pixHD), the TPS augmentation from [DeepSIM](https://github.com/eliahuhorwitz/DeepSIM), and the patch-based refinement code from [https://ebsynth.com/](https://ebsynth.com/) ([GitHub](https://github.com/jamriska/ebsynth)).
 
 We would also like to thank [Zuzana Studená](https://artemisfilm.webnode.com/) who produced some of the artwork used in this work.
+The Dino images were taken from [https://opengameart.org](https://opengameart.org/content/free-dino-sprites).
 
 ## Citation
 If you found this code useful please consider citing:
