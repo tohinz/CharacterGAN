@@ -11,16 +11,16 @@ def get_keypoint_colors():
     return keypoint_dict.get_keypoint_colors()
 
 
-def get_keypoint_labels():
-    return keypoint_dict.get_keypoints_label()
+def get_keypoint_labels(opt):
+    return keypoint_dict.get_keypoints_label(opt)
 
 
-def get_keypoints():
-    return keypoint_dict.get_keypoints()
+def get_keypoints(opt):
+    return keypoint_dict.get_keypoints(opt)
 
 
 def load_layer_information(opt):
-    keypoints = get_keypoints()
+    keypoints = get_keypoints(opt)
     layers = [[] for i in range(opt.num_kp_layers)]
 
     with open(os.path.join(opt.dataroot, "keypoints_layers.csv"), "r") as f:
@@ -56,7 +56,7 @@ def load_keypoints(opt):
     with open(os.path.join(opt.dataroot, "keypoints.csv"), "r") as f:
         keypoints = f.readlines()
     keypoints = [kp.strip() for kp in keypoints]
-    keypoint_labels = keypoint_dict.get_keypoints()
+    keypoint_labels = keypoint_dict.get_keypoints(opt)
 
     kp_dict = {}
     for line_idx, keypoint in enumerate(keypoints):
@@ -83,7 +83,7 @@ def load_keypoints(opt):
 
 
 def load_skeleton_info(opt):
-    keypoint_labels = keypoint_dict.get_keypoints()
+    keypoint_labels = keypoint_dict.get_keypoints(opt)
     skeleton = {}
     with open(os.path.join(opt.dataroot, "keypoints_skeleton.csv"), "r") as f:
         skeleton_info = f.readlines()
