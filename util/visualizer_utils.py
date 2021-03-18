@@ -6,11 +6,11 @@ from . import keypoint_functions
 
 
 class DragButton(QPushButton):
-    def __init__(self, window, name, x_coord, y_coord, kp_size):
+    def __init__(self, window, name, x_coord, y_coord, kp_size, opt):
         super().__init__(window)
         self.window = window
         self.name = name
-        self.kp_labels = keypoint_functions.get_keypoint_labels()
+        self.kp_labels = keypoint_functions.get_keypoint_labels(opt)
         # setting geometry of button
         self.setGeometry(x_coord, y_coord, 2*kp_size, 2*kp_size)
         # setting radius and border

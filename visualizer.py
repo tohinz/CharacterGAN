@@ -77,7 +77,8 @@ class Window(QMainWindow):
         all_kps = []
         for kp in sorted(kp_dict.keys()):
             _kp = kp_dict[kp]
-            all_kps.append(utils.DragButton(self, kp, self.img_scale*(int(_kp[0]))+10, self.img_scale*(int(_kp[1]))+10, kp_size))
+            all_kps.append(utils.DragButton(self, kp, self.img_scale*(int(_kp[0]))+10, self.img_scale*(int(_kp[1]))+10,
+                                            kp_size, self.opt))
         return all_kps
 
     def save_current_img(self):

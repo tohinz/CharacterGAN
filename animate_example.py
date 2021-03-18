@@ -117,6 +117,7 @@ if __name__ == '__main__':
     opt.gpu_ids = _gpu_ids
     opt.name = opt.model_path
     opt.batch_size= _batch_size
+    device = "cpu" if not len(opt.gpu_ids) else "cuda:{}".format(opt.gpu_ids[0])
 
     kp_dict = keypoint_functions.load_keypoints(opt)
     assert len(kp_dict.keys()) > 0
@@ -131,11 +132,11 @@ if __name__ == '__main__':
     img_labels = [functions.generate_keypoint_condition(kpd, opt) for kpd in img_label_between]
     layered_img_labels = []
     for layer in range(opt.num_kp_layers):
-        layered_img_labels.append(torch.stack([img_labels[idx][layer] for idx in range(len(img_labels))], 0).squeeze().cuda())
+        layered_img_labels.append(torch.stack([img_labels[idx][layer] for idx in range(len(img_labels))], 0).squeeze().to(device))
     num_batches = (layered_img_labels[0].shape[0] // opt.batch_size) + 1
 
     print("Loading model...")
-    netG = functions.load_model(opt).cuda()
+    netG = functions.load_model(opt).to(device)
 
     print("Generating {} images...".format(layered_img_labels[0].shape[0]))
     with torch.no_grad():
