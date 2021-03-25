@@ -151,6 +151,8 @@ Our implementation uses code from [Pix2PixHD](https://github.com/NVIDIA/pix2pixH
 We would also like to thank [Zuzana Studená](https://artemisfilm.webnode.com/) who produced some of the artwork used in this work.
 The Dino images were taken from [https://www.gameart2d.com](https://www.gameart2d.com/free-dino-sprites.html).
 
+The data for the human reposing example was obtained from [https://endlessreference.com/](https://endlessreference.com/).
+
 ## Citation
 If you found this code useful please consider citing:
 
