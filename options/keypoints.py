@@ -19,7 +19,7 @@ __keypoint_labels_watercolor = {
     }
 
 # Fox
-__keypoint_labels_watercolor = {
+__keypoint_labels_fox = {
         "Head": 0,
         "Left-Hand": 1,
         "Right-Hand": 2,
