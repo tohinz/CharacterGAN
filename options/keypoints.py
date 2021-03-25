@@ -18,6 +18,27 @@ __keypoint_labels_watercolor = {
         "Tail-2": 15,
     }
 
+# Fox
+__keypoint_labels_watercolor = {
+        "Head": 0,
+        "Left-Hand": 1,
+        "Right-Hand": 2,
+        "Left-Elbow": 3,
+        "Right-Elbow": 4,
+        "Torso": 5,
+        "Left-Knee": 6,
+        "Right-Knee": 7,
+        "Left-Foot-1": 8,
+        "Right-Foot-1": 9,
+        "Left-Shoulder": 10,
+        "Right-Shoulder": 11,
+        "Left-Hip": 12,
+        "Right-Hip": 13,
+        "Tail-1": 14,
+        "Left-Foot-2": 15,
+        "Right-Foot-2": 16,
+    }
+
 # Dino
 __keypoint_labels_dino = {
         "Head": 0,
@@ -62,6 +83,7 @@ __keypoint_colors = {
 
 __keypoint_labels_inverse_watercolor = {v: k for k, v in __keypoint_labels_watercolor.items()}
 __keypoint_labels_inverse_dino = {v: k for k, v in __keypoint_labels_dino.items()}
+__keypoint_labels_inverse_fox = {v: k for k, v in __keypoint_labels_dino.items()}
 
 
 def get_keypoints(opt):
@@ -69,6 +91,8 @@ def get_keypoints(opt):
         return __keypoint_labels_watercolor
     elif "dino" in opt.dataroot.lower():
         return __keypoint_labels_dino
+    elif "fox" in opt.dataroot.lower():
+        return __keypoint_labels_fox
     else:
         print("Keypoints for dataset {} not found.")
         print("Please update file \"options/keypoints.py\"")
@@ -80,6 +104,8 @@ def get_keypoints_label(opt):
         return __keypoint_labels_inverse_watercolor
     elif "dino" in opt.dataroot.lower():
         return __keypoint_labels_inverse_dino
+    elif "fox" in opt.dataroot.lower():
+        return __keypoint_labels_inverse_fox
     else:
         print("Keypoints for dataset {} not found.")
         print("Please update file \"options/keypoints.py\"")
