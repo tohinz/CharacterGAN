@@ -83,7 +83,7 @@ __keypoint_colors = {
 
 __keypoint_labels_inverse_watercolor = {v: k for k, v in __keypoint_labels_watercolor.items()}
 __keypoint_labels_inverse_dino = {v: k for k, v in __keypoint_labels_dino.items()}
-__keypoint_labels_inverse_fox = {v: k for k, v in __keypoint_labels_dino.items()}
+__keypoint_labels_inverse_fox = {v: k for k, v in __keypoint_labels_fox.items()}
 
 
 def get_keypoints(opt):
