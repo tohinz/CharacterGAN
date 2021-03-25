@@ -13,9 +13,9 @@ To train the model all we need are few images depicting the character in diverse
 
 **Animation**: For all examples the model was trained on 8-15 images (see first row) of the given character.
 
-Training Images |  12         |  15          |  9         |  12          |  15         |  15          |  8
+Training Images |  12         |  15          |  9         |  12          |  15         |  8          |  8
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/dino.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/stock_man.gif) |  ![robot_animation](gifs/ape.gif) |  ![man_animation](gifs/watercolor_man.gif) |  ![cow_animation](gifs/cow.gif)
+Animation |  ![dog_animation](gifs/dog.gif) |  ![maddy_animation](gifs/dino.gif) |  ![ostrich_animation](gifs/ostrich.gif) |  ![man_animation](gifs/stock_man.gif) |  ![robot_animation](gifs/ape.gif) |  ![man_animation](gifs/fox.gif) |  ![cow_animation](gifs/cow.gif)
 
 <br/><br/>
 
@@ -68,7 +68,7 @@ The structure of the `keypoints_layers.csv` file is (no header): `keypoint,layer
 See our example training data in `datasets` for examples of both files.
 
 We provide two examples (produced by [Zuzana Studená](https://artemisfilm.webnode.com/)) for training, located in `datasets`.
-We also provide the Dino example (taken from [https://www.gameart2d.com](https://www.gameart2d.com/free-dino-sprites.html)) from which we used the 10 "Walk" images for training.
+We also provide the Dino example (taken from [https://www.gameart2d.com](https://www.gameart2d.com/free-dino-sprites.html)) from which we used the 10 "Walk" images for training and the 8 training images for the "Fox" example.
 Our other examples were trained on data from [Adobe Stock](https://stock.adobe.com/) or from [Character Animator](https://www.adobe.com/products/character-animator.html) and I currently have no license to distribute them.
 You can purchase the Stock data here:
 * [Man](https://stock.adobe.com/images/running-man-cycle-of-animation-for-men-s-running-2d-cartoon-character/325376414): we used all images
@@ -113,7 +113,7 @@ To monitor the progress go to the respective folder and run
 At test time you can either use the model to animate the character or use our interactive GUI to change the position of individual keypoints.
 
 ### Pretrained Models
-Download pretrained models for "Dino", "Watercolor-Man", and "Watercolor-Lady" [here](https://ln.sync.com/dl/6045558a0/y963ccg6-jcmamrg6-5eeq9nwj-g5tw9dh3).
+Download pretrained models for "Dino", "Fox", "Watercolor-Man", and "Watercolor-Lady" [here](https://ln.sync.com/dl/6045558a0/y963ccg6-jcmamrg6-5eeq9nwj-g5tw9dh3).
 Put the model files into the folders in `./checkpoints`.
 
 ### Animate Character
