@@ -157,10 +157,11 @@ The data for the human reposing example was obtained from [https://endlessrefere
 If you found this code useful please consider citing:
 
 ```
-@article{hinz2021character,
-    author    = {Hinz, Tobias and Fisher, Matthew and Wang, Oliver and Shechtman, Eli and Wermter, Stefan},
-    title     = {CharacterGAN: Few-Shot Keypoint Character Animation and Reposing},
-    journal = {arXiv preprint arXiv:2102.03141},
-    year      = {2021}
+@inproceedings{hinz2022charactergan,
+  title={CharacterGAN: Few-Shot Keypoint Character Animation and Reposing},
+  author={Hinz, Tobias and Fisher, Matthew and Wang, Oliver and Shechtman, Eli and Wermter, Stefan},
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision},
+  pages={1988--1997},
+  year={2022}
 }
 ```
